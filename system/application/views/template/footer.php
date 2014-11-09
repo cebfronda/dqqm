@@ -1,0 +1,1 @@
+<p>Copyright (c) 2012 Untitled Templates. All rights reserved. Design by <a href="http://www.thewebhub.com/">Web Hub</a>. Photos by <a href="http://www.piktyurs.com/">Piktyurs.</a></p>

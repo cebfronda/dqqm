@@ -28,27 +28,27 @@
 |	['dbcollat'] The character collation used in communicating with the database
 |
 | The $active_group variable lets you choose which connection group to
-| make active.  By default there is only one group (the "default" group).
+| make active.  By crm there is only one group (the "crm" group).
 |
 | The $active_record variables lets you determine whether or not to load
 | the active record class
 */
 
-$active_group = "default";
+$active_group = "crm";
 $active_record = TRUE;
 
-$db['default']['hostname'] = "localhost";
-$db['default']['username'] = "";
-$db['default']['password'] = "";
-$db['default']['database'] = "";
-$db['default']['dbdriver'] = "mysql";
-$db['default']['dbprefix'] = "";
-$db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
-$db['default']['cache_on'] = FALSE;
-$db['default']['cachedir'] = "";
-$db['default']['char_set'] = "utf8";
-$db['default']['dbcollat'] = "utf8_general_ci";
+$db['crm']['hostname'] = "localhost";
+$db['crm']['username'] = "root";
+$db['crm']['password'] = "";
+$db['crm']['database'] = "dq_crm";
+$db['crm']['dbdriver'] = "mysql";
+$db['crm']['dbprefix'] = "";
+$db['crm']['pconnect'] = TRUE;
+$db['crm']['db_debug'] = TRUE;
+$db['crm']['cache_on'] = FALSE;
+$db['crm']['cachedir'] = "";
+$db['crm']['char_set'] = "utf8";
+$db['crm']['dbcollat'] = "utf8_general_ci";
 
 
 /* End of file database.php */

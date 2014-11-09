@@ -1,0 +1,1 @@
+<h2><?php echo $_SESSION[SESSION_NAME]->username?></h2>
