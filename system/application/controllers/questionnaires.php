@@ -69,6 +69,7 @@ class Questionnaires extends Controller {
 		$data['questionnaires'] = "active";
 		$data['survey'] = $this->qm_model->survey_question($id);
 		$data['dependents'] = $this->qm_model->get_survey_dependents($id);
+		$data['status'] = $this->qm_model->survey_question_status();
 		$data['id'] = $id;
 		$data['type'] = "main";
 		$this->load->view('template_main', $data); 
@@ -95,6 +96,7 @@ class Questionnaires extends Controller {
 			$_POST['survey']['options'] = json_encode($options);
 			echo $this->qm_model->save_survey($id, $_POST['survey']);	
 		}else if($type == "main"){
+			$_POST['survey']['effectivity_date'] = date("Y-m-d",strtotime($_POST['survey']['effectivity_date']));
 			if(empty($id)){
 				$options = array();
 				if(!empty($_POST['option'])){

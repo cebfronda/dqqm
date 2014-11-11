@@ -1,5 +1,6 @@
     <script type="text/javascript">
 	$(document).ready(function(){
+	    $( "#effectivedate" ).datepicker();
 	    $('#frm-main-save').click(function(){
 		$.post("<?php echo base_url(),index_page()?>/questionnaires/save/main/<?php echo $id?>", $("#frm-main").serialize(), function(data){
 		    alert(data);
@@ -24,7 +25,7 @@
 			echo "add_option('".str_replace("+", "", $opt)."', '$positive');";
 		    }
 		}else{
-		    echo "add_option('unanswered');";
+		    echo "add_option('Not Answered');";
 		}
 	    ?>
 	    
@@ -94,8 +95,18 @@
 	    <td colspan = 2><textarea class = "frm-input" name = "survey[question]" ><?php echo empty($survey)? "": $survey->question; ?></textarea>
 	</tr>
 	<tr>
-	    <td>Options</td>
+	    <td>Options<br>(Check the checkbox that indicates a positive response)</td>
 	    <td><div id = "survey_options"></div><a href = "javascript:add_option('New Option')">Add Option for this survey</a></td>
+	</tr>
+	<tr>
+	    <td>Status</td>
+	    <td>
+		<select class = "frm-input" name = "survey[status_id]">
+		    <?php foreach($status as $stat){ ?>
+			<option value = "<?php echo $stat->status_id ?>" <?php echo (empty($survey)? "" : ($stat->status_id == $survey->status_id ) ? "selected = 'selected'": "" ) ?>><?php echo $stat->status; ?></option>
+		    <?php } ?>
+		</select>
+	    </td>
 	</tr>
 	<tr>
 	    <td>Points</td>
@@ -106,8 +117,18 @@
 	    <td><input type = "text" class = "frm-input" name = "survey[order]" value = "<?php echo empty($survey)? "": $survey->order; ?>" ></td>
 	</tr>
 	<tr>
-	    <td>Max Cap</td>
+	    <td>Max Cap for Positive Response</td>
 	    <td><input type = "text" class = "frm-input" name = "survey[cap]" value = "<?php echo empty($survey)? "": $survey->cap; ?>" ></td>
+	</tr>
+	<tr>
+	    <td>Effective Date</td>
+	    <td><input type = "text" id = "effectivedate" class = "frm-input" name = "survey[effectivity_date]" value = "<?php echo empty($survey)? "": date("m/d/Y", strtotime($survey->effectivity_date)); ?>" ></td>
+	</tr>
+	<tr>
+	    <td colspan= 2>Remarks</td>
+	</tr> 
+	<tr>
+	    <td colspan = 2><textarea class = "frm-input" name = "survey[remarks]" ><?php echo empty($survey)? "": $survey->remarks; ?></textarea>
 	</tr>
 	<tr>
 	    <td colspan= 2><div id = "dependents"></div><a href = "javascript:add_dependents()">Add child for this survey</a></td>

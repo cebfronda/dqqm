@@ -2,6 +2,7 @@
 class qm_model extends model {
 	public $account_verification = "dq_account_verifications";
 	public $survey = "dq_survey_questions";
+	public $status = "dq_survey_question_status";
 	public $main = "main";
 	public $basic = "basic";
 	public $customer = "dq_customers";
@@ -15,6 +16,12 @@ class qm_model extends model {
 	function account_verification_lists(){
 		$this->db->from($this->account_verification);
 		$this->db->order_by('reference', 'ASC');
+		return $this->db->get()->result();
+	}
+	
+	function survey_question_status(){
+		$this->db->from($this->status);
+		$this->db->order_by('status_id', 'ASC');
 		return $this->db->get()->result();
 	}
 	

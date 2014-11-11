@@ -24,7 +24,7 @@
 			echo "add_option('".str_replace("+", "", $opt)."', '$positive');";
 		    }
 		}else{
-		    echo "add_option('unanswered');";
+		    echo "add_option('Not Answered');";
 		}
 	    ?>
 	    
@@ -63,7 +63,7 @@
 	    <td colspan = 2><textarea class = "frm-input" name = "survey[question]" ><?php echo empty($survey)? "": $survey->question; ?></textarea>
 	</tr>
 	<tr>
-	    <td>Options</td>
+	    <td>Options<br>(Check the checkbox that indicates a positive response)</td>
 	    <td><div id = "survey_options"></div><a href = "javascript:add_option('New Option')">Add Option for this survey</a></td>
 	</tr>
 	<tr>
@@ -75,7 +75,7 @@
 	    <td><input type = "text" class = "frm-input" name = "survey[order]" value = "<?php echo empty($survey)? "": $survey->order; ?>" ></td>
 	</tr>
 	<tr>
-	    <td>Max Cap</td>
+	    <td>Max Cap for Positive Response</td>
 	    <td><input type = "text" class = "frm-input" name = "survey[cap]" value = "<?php echo empty($survey)? "": $survey->cap; ?>" ></td>
 	</tr>
     </table>

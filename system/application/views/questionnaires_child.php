@@ -13,7 +13,7 @@
 			echo "add_child_option('$form','".str_replace("+", "", $opt)."', '$positive');";
 		    }
 		}else{
-		    echo "add_child_option($form, 'unanswered');";
+		    echo "add_child_option($form, 'Not Answered');";
 		}
 	    ?>	
 	    
@@ -35,7 +35,7 @@
 	    <td colspan = 2><textarea class = "frm-input" name = "child[<?php echo $form?>][question]" ><?php echo empty($survey)? "": $survey->question; ?></textarea>
 	</tr>
 	<tr>
-	    <td>Options</td>
+	    <td>Options<br>(Check the checkbox that indicates a positive response)</td>
 	    <td><div id = "survey_options<?php echo $form?>"></div><a href = "javascript:add_child_option('<?php echo $form?>','New Option')">Add Option for this survey</a></td>
 	</tr>
     </table>
