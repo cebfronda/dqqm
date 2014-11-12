@@ -34,6 +34,9 @@ class Users extends Controller {
 	}
 	
 	function save($user_id = 0){
+		if(!empty($_POST['users']['password'])){
+			$_POST['users']['password'] = md5($_POST['users']['password']);	
+		}
 		$data = $_POST['users'];
 		echo $this->user_model->save($user_id, $data);
 	}
