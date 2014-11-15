@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 15, 2014 at 02:10 PM
+-- Generation Time: Nov 15, 2014 at 04:27 PM
 -- Server version: 5.6.12
 -- PHP Version: 5.5.1
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `dq_account_verifications` (
   `reference` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `script` text COLLATE utf8_unicode_ci NOT NULL,
   `points` int(10) NOT NULL DEFAULT '1',
-  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`account_verification_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `dq_call_logs` (
   `customer_id` bigint(50) NOT NULL,
   `call_duration` time NOT NULL,
   `points` int(11) NOT NULL,
-  `call_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `call_time` datetime NOT NULL,
   PRIMARY KEY (`call_log_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `dq_call_records` (
   `refernce` enum('dq_account_verifications','dq_survey_questions') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'dq_survey_questions',
   `reference_id` bigint(50) NOT NULL,
   `answer` text COLLATE utf8_unicode_ci NOT NULL,
-  `record_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `record_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `dq_customers` (
   `province` text COLLATE utf8_unicode_ci NOT NULL,
   `postal_code` text COLLATE utf8_unicode_ci NOT NULL,
   `created` datetime NOT NULL,
-  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime NOT NULL,
   PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `dq_logic` (
   `survey_question_id` bigint(50) NOT NULL,
   `inclusion` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`logical_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `dq_logic`
@@ -136,7 +136,30 @@ CREATE TABLE IF NOT EXISTS `dq_logic` (
 
 INSERT INTO `dq_logic` (`logical_id`, `logic_id`, `survey_question_id`, `inclusion`) VALUES
 (1, 1, 46, '["unanswered","AL","B","BH"]'),
-(2, 50, 46, '["18-24","25-34","45-54"]');
+(2, 50, 46, '["18-24","25-34","45-54"]'),
+(3, 1, 56, '["BH"]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dq_option_link`
+--
+
+CREATE TABLE IF NOT EXISTS `dq_option_link` (
+  `option_id` bigint(100) NOT NULL,
+  `link` bigint(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `dq_option_link`
+--
+
+INSERT INTO `dq_option_link` (`option_id`, `link`) VALUES
+(140, 53),
+(142, 53),
+(144, 53),
+(145, 54),
+(189, 57);
 
 -- --------------------------------------------------------
 
@@ -149,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `dq_survey_questions` (
   `set_id` text COLLATE utf8_unicode_ci NOT NULL,
   `qcode` text COLLATE utf8_unicode_ci NOT NULL,
   `campaign` text COLLATE utf8_unicode_ci NOT NULL,
-  `order` int(100) NOT NULL,
+  `order` text COLLATE utf8_unicode_ci NOT NULL,
   `type` enum('basic','main') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'basic',
   `question` text COLLATE utf8_unicode_ci NOT NULL,
   `points` int(3) NOT NULL DEFAULT '1',
@@ -162,20 +185,23 @@ CREATE TABLE IF NOT EXISTS `dq_survey_questions` (
   `effectivity_date` date NOT NULL,
   `remarks` text COLLATE utf8_unicode_ci NOT NULL,
   `created` datetime NOT NULL,
-  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime NOT NULL,
   PRIMARY KEY (`survey_question_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=58 ;
 
 --
 -- Dumping data for table `dq_survey_questions`
 --
 
 INSERT INTO `dq_survey_questions` (`survey_question_id`, `set_id`, `qcode`, `campaign`, `order`, `type`, `question`, `points`, `options`, `parent_rules`, `dependent`, `cap_type`, `cap`, `status_id`, `effectivity_date`, `remarks`, `created`, `modified`) VALUES
-(1, '1111A', '11111A', 'PRE-QUALIFYING', 1, 'basic', 'POST CODE INCLUSION', 1, '["unanswered","+AL","+B","BH","BN","BR"]', 'f', 0, 'capped', 150, 0, '0000-00-00', 'some', '0000-00-00 00:00:00', '2014-11-09 13:29:42'),
-(46, '31267', '73124', 'Scottish Power', 7, 'main', 'Who is your electric supplier?', 1, '', 'f', 0, 'uncapped', 0, 1, '2014-09-18', 'No Remarks', '0000-00-00 00:00:00', '2014-11-14 22:59:33'),
-(50, '213231', '6378290', 'PRE-QUALIFYING', 2, 'basic', 'Please Indicate your age bracket?', 1, '["Not Answered","18-24","25-34","45-54","55-64","65-74","75 and above"]', 'f', 0, 'capped', 0, 1, '0000-00-00', 'Age', '0000-00-00 00:00:00', '2014-11-14 23:34:21'),
-(53, '31267-A', '73122', 'Scottish Power', 0, 'main', 'Who is your Current Supplier?', 1, '', 'f', 46, 'capped', 100, 1, '2014-09-18', 'No Remarks', '0000-00-00 00:00:00', '2014-11-15 10:56:03'),
-(54, '111111', '1237834', 'NPower', 0, 'main', 'some script', 12, '', 'f', 46, 'capped', 12, 2, '2014-11-30', '123', '0000-00-00 00:00:00', '2014-11-15 10:56:04');
+(1, '1111A', '11111A', 'PRE-QUALIFYING', '1', 'basic', 'POST CODE INCLUSION', 1, '["unanswered","+AL","+B","BH","BN","BR"]', 'f', 0, 'capped', 150, 0, '0000-00-00', 'some', '0000-00-00 00:00:00', '2014-11-09 13:29:42'),
+(46, '31267', '73124', 'Scottish Power', '7', 'main', 'Who is your electric supplier?', 1, '', 'f', 0, 'uncapped', 0, 1, '2014-09-18', 'No Remarks', '0000-00-00 00:00:00', '2014-11-14 22:59:33'),
+(50, '213231', '6378290', 'PRE-QUALIFYING', '2', 'basic', 'Please Indicate your age bracket?', 1, '["Not Answered","18-24","25-34","45-54","55-64","65-74","75 and above"]', 'f', 0, 'capped', 0, 1, '0000-00-00', 'Age', '0000-00-00 00:00:00', '2014-11-14 23:34:21'),
+(53, '31267-A', '73122', 'Scottish Power', '7.1', 'main', 'Who is your Current Supplier?', 1, '', 'f', 46, 'capped', 100, 1, '2014-09-18', 'No Remarks', '0000-00-00 00:00:00', '2014-11-15 10:56:03'),
+(54, '111111', '1237834', 'NPower', '7.2', 'main', 'some script', 12, '', 'f', 46, 'capped', 12, 2, '2014-11-30', '123', '0000-00-00 00:00:00', '2014-11-15 10:56:04'),
+(55, '111111', '7r23-=21', 'RANDOM', '7.2.1', 'main', 'sample', 1, '', 'f', 0, 'uncapped', 1, 1, '2014-11-24', 'rwegwe', '0000-00-00 00:00:00', '2014-11-15 23:21:21'),
+(56, '22222', '22222', '22222-A', '2', 'main', 'script for two?', 1, '', 'f', 0, 'capped', 100, 1, '2014-11-30', 'sample', '0000-00-00 00:00:00', '2014-11-15 23:23:55'),
+(57, '22222B', '22222B', '22222-B', '2.1', 'main', 'another script for 2?', 1, '', 'f', 0, 'uncapped', 0, 1, '2014-11-30', 'no remarks', '0000-00-00 00:00:00', '2014-11-15 23:26:38');
 
 -- --------------------------------------------------------
 
@@ -190,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `dq_survey_question_options` (
   `positive` enum('t','f') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'f',
   `linkto` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`option_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=155 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=193 ;
 
 --
 -- Dumping data for table `dq_survey_question_options`
@@ -285,15 +311,23 @@ INSERT INTO `dq_survey_question_options` (`option_id`, `survey_question_id`, `op
 (143, 46, 'NPower', 't', ''),
 (144, 46, 'Other', 't', ''),
 (145, 46, 'Scottish Power', 'f', ''),
-(146, 53, 'Not Answered', 'f', ''),
-(147, 53, 'Bristish Gas', 'f', ''),
-(148, 53, 'EDF Energy', 'f', ''),
-(149, 53, 'EON', 'f', ''),
-(150, 53, 'NPower', 'f', ''),
-(151, 53, 'Other', 'f', ''),
-(152, 53, 'Scottish Power', 't', ''),
-(153, 54, 'Not Answered', 'f', ''),
-(154, 54, 'New Option', 't', '');
+(176, 53, 'Not Answered', 'f', ''),
+(177, 53, 'Bristish Gas', 'f', ''),
+(178, 53, 'EDF Energy', 'f', ''),
+(179, 53, 'EON', 'f', ''),
+(180, 53, 'NPower', 'f', ''),
+(181, 53, 'Other', 'f', ''),
+(182, 53, 'Scottish Power', 't', ''),
+(183, 54, 'Not Answered', 'f', ''),
+(184, 54, 'New Option', 't', ''),
+(185, 55, '1111', 'f', ''),
+(186, 55, '2222', 't', ''),
+(187, 56, 'Not Answered', 'f', ''),
+(188, 56, 'Yes', 'f', ''),
+(189, 56, 'No', 'f', ''),
+(190, 57, 'Not Answered', 'f', ''),
+(191, 57, 'yes', 'f', ''),
+(192, 57, 'other', 'f', '');
 
 -- --------------------------------------------------------
 
@@ -336,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `dq_users` (
   `contact_details` text COLLATE utf8_unicode_ci NOT NULL,
   `photo` text COLLATE utf8_unicode_ci NOT NULL,
   `created` datetime NOT NULL,
-  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;

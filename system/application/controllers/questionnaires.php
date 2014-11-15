@@ -58,7 +58,7 @@ class Questionnaires extends Controller {
 	
 	function qm_main_lists(){
 		$data['page_side'] = "side/questionnaires";
-		$data['page_view'] = "Questionnaires_main_lists";
+		$data['page_view'] = "questionnaires_main_lists";
 		$data['questionnaires'] = "active";
 		$data['lists'] = $this->qm_model->main_survey_lists();
 		$this->load->view('template_main', $data); 
