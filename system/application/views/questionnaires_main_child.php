@@ -55,25 +55,42 @@
     <input type = 'hidden' value = "main" name = 'survey[type]'>
     <table>
 	<tr style = "background-color: black; color: white; font-size: 16px;">
-	    <td colspan= 2>LOGIC QUESTIONS</td>
+	    <td colspan= 2>PARENT SURVEY QUESTION</td>
 	</tr>
-	<?php foreach($logic as $l){?>
-	    <tr>
-		<td><?php echo "Set ID : $l->set_id (QCODE:#$l->qcode)<br>$l->question" ?></td>
-		<td>
-		    <select name = "logic[<?php echo $l->survey_question_id ?>][]" multiple>
-		    <?php
-			$selected = $this->qm_model->get_logic_questions_selection($l->survey_question_id, $id);
-			$selected = (!empty($selected)? json_decode($selected->inclusion) : array());
-			$o = $this->qm_model->get_survey_options($l->survey_question_id);
-		    ?>
-		    <?php foreach($o as $opt){?>
-			<option value = "<?php echo $opt->option ?>" <?php echo (in_array($opt->option, $selected) ? "selected = 'selected'" : "" ) ?>><?php echo $opt->option ?></option>
+	    <td>SET ID</td>
+	    <td><?php echo $parent->set_id; ?></td>
+	</tr>
+	</tr>
+	    <td>CAMPAIGN</td>
+	    <td><?php echo $parent->campaign; ?></td>
+	</tr>
+	</tr>
+	    <td>QCODE</td>
+	    <td><?php echo $parent->qcode; ?></td>
+	</tr>
+	</tr>
+	    <td>SCRIPT</td>
+	    <td><?php echo $parent->question; ?></td>
+	</tr>
+	<tr>
+	    <td>RESPONSES</td>
+	    <td>
+		<?php
+		    $o = $this->qm_model->get_option_link($id);
+		    $soptns = array();
+		    if(!empty($o)){
+			foreach($o as $x){
+			    array_push($soptns, $x->option_id);
+			}
+		    }
+		?>
+		<select name = "linkto[]" multiple>
+		    <?php foreach($parentoptions as $o){ ?>
+			<option value = "<?php echo $o->option_id ?>" <?php echo (in_array($o->option_id, $soptns))? "selected = 'selected'" : "" ; ?>><?php echo $o->option ?></option>
 		    <?php } ?>
-		    </select>
-		</td>
-	    </tr>
-	<?php }?>
+		</select>
+	    </td>
+	</tr>
 	<tr>
 	    <td colspan= 2><hr></td>
 	</tr>
@@ -130,10 +147,7 @@
 	<tr>
 	    <td colspan = 2><textarea class = "frm-input" name = "survey[remarks]" ><?php echo empty($survey)? "": $survey->remarks; ?></textarea>
 	</tr>
-	<tr>
-	    <td>ORDER</td>
-	    <td><input type = "text" class = "frm-input" name = "survey[order]" value = "<?php echo empty($survey)? "": $survey->order; ?>" ></td>
-	</tr>
+	<input type = "hidden" class = "frm-input" name = "survey[order]" value = "<?php echo empty($survey)? $parent->order.".".(count($this->qm_model->get_survey_dependents($parent->survey_question_id))+1) : $survey->order; ?>" ></td>
 	<tr>
 	    <td>STATUS</td>
 	    <td>

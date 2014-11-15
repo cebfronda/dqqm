@@ -7,6 +7,9 @@
 	    $('.view').click(function(){
                 window.location = "<?php echo base_url().index_page()?>/questionnaires/qm_main/"+$(this).attr('id');
 	    });
+	    $('.child').click(function(){
+                window.location = "<?php echo base_url().index_page()?>/questionnaires/qm_main_child/"+$(this).attr('id');
+	    });
 	    $('.delete').click(function(){
 		var confirmdeletion = confirm('Are you sure you want to delete this survey question?');
 		if (confirmdeletion) {
@@ -58,8 +61,11 @@
 				<td><?php echo $l->qcode; ?></td>
 				<td><?php echo $l->question; ?></td>
 				<td>
-				    <img id = "<?php echo $l->survey_question_id ?>" class = "view" src="<?php echo base_url()?>images/view16.png">
-				    <img id = "<?php echo $l->survey_question_id ?>" class = "delete" src="<?php echo base_url()?>images/delete16.png">
+				    <center>
+					<img id = "<?php echo $l->survey_question_id ?>" class = "view" src="<?php echo base_url()?>images/view16.png">
+					<img style = "width:16px;" id = "<?php echo $l->survey_question_id ?>" class = "child" src="<?php echo base_url()?>images/child.png">
+					<img id = "<?php echo $l->survey_question_id ?>" class = "delete" src="<?php echo base_url()?>images/delete16.png">
+				    </center>
 				</td>
 			</tr>
 		    <?php } ?>

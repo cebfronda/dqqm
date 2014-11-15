@@ -65,17 +65,36 @@ class Questionnaires extends Controller {
 	}
 	
 	function qm_main($id = 0){
-		$data['page_side'] = "side/questionnaires";
-		$data['page_view'] = "questionnaires_main";
-		$data['questionnaires'] = "active";
-		$data['survey'] = $this->qm_model->survey_question($id);
-		$data['dependents'] = $this->qm_model->get_survey_dependents($id);
+		$data['survey'] = $sq = $this->qm_model->survey_question($id);
 		$data['status'] = $this->qm_model->survey_question_status();
 		$data['options'] = $this->qm_model->get_survey_options($id);
-		$data['logic'] = $this->qm_model->basic_survey_lists();
 		$data['id'] = $id;
 		$data['type'] = "main";
+		$data['page_side'] = "side/questionnaires";
+		if(empty($sq->dependent)){
+			$data['page_view'] = "questionnaires_main";
+			$data['logic'] = $this->qm_model->basic_survey_lists();
+		}else{
+			$data['page_view'] = "questionnaires_main_child";
+			$data['parent'] = $this->qm_model->survey_question($sq->dependent);
+			$data['parentoptions'] = $this->qm_model->get_survey_options($sq->dependent);
+		}
+		$data['questionnaires'] = "active";
 		$this->load->view('template_main', $data); 
+	}
+	
+	function qm_main_child($id = 0){
+		$data['parent'] = $sq = $this->qm_model->survey_question($id);
+		$data['survey'] = $this->qm_model->survey_question(0);
+		$data['status'] = $this->qm_model->survey_question_status();
+		$data['parentoptions'] = $this->qm_model->get_survey_options($id);
+		$data['id'] = 0;
+		$data['type'] = "main";
+		$data['page_view'] = "questionnaires_main_child";
+		$data['page_side'] = "side/questionnaires";
+		$data['questionnaires'] = "active";
+		$this->load->view('template_main', $data);
+		
 	}
 	
 	function qm_child($id = 0){
@@ -142,38 +161,13 @@ class Questionnaires extends Controller {
 						$this->qm_model->save_logic($datalogic);
 					}
 				}
-				//Saving Child
-				if(!empty($_POST['child'])){
-					foreach($_POST['child'] as $key => $val){
-						$childdata = array();
-						$childoptions = array();
-						foreach($val as $k => $v){				
-							if(is_numeric($k)){
-								$c = array();
-								$c['option'] = $v['option'];
-								if(!empty($v['positive'])){
-									$c['positive'] = "t";	
-								}
-								array_push($childoptions, $c);
-									
-							}else{
-								$childdata[$k] = $v;	
-							}
-						}
-						
-						$childdata['dependent'] = $id;
-						$childdata['effectivity_date'] = date("Y-m-d",strtotime($childdata['effectivity_date']));
-						$cid = $this->qm_model->new_save_survey($childdata);
-						foreach($childoptions as $ckey => $cval){
-							
-							$cdata = array();
-							$cdata['survey_question_id'] = $cid;
-							$cdata['option'] = $cval['option'];
-							if(!empty($cval['positive'])){
-								$cdata['positive'] = "t";	
-							}
-							$this->qm_model->move($cdata);
-						}	
+				//saving link_options
+				if(!empty($_POST['linkto'])){
+					foreach($_POST['linkto'] as $sqoid => $sqoval ){
+						$linkto = array();
+						$linkto['option_id'] = $sqoval;
+						$linkto['link'] = $id;
+						$this->qm_model->save_option_link($linkto);
 					}
 				}
 				echo "Survey question successfully created.";
@@ -203,39 +197,13 @@ class Questionnaires extends Controller {
 						$this->qm_model->save_logic($datalogic);
 					}
 				}
-				//Saving Child
-				$this->qm_model->delete_dependents($id);
-				if(!empty($_POST['child'])){
-					foreach($_POST['child'] as $key => $val){
-						$childdata = array();
-						$childoptions = array();
-						foreach($val as $k => $v){				
-							if(is_numeric($k)){
-								$c = array();
-								$c['option'] = $v['option'];
-								if(!empty($v['positive'])){
-									$c['positive'] = "t";	
-								}
-								array_push($childoptions, $c);
-									
-							}else{
-								$childdata[$k] = $v;	
-							}
-						}
-						
-						$childdata['dependent'] = $id;
-						$childdata['effectivity_date'] = date("Y-m-d",strtotime($childdata['effectivity_date']));
-						$cid = $this->qm_model->new_save_survey($childdata);
-						foreach($childoptions as $ckey => $cval){
-
-							$cdata = array();
-							$cdata['survey_question_id'] = $cid;
-							$cdata['option'] = $cval['option'];
-							if(!empty($cval['positive'])){
-								$cdata['positive'] = "t";	
-							}
-							$this->qm_model->move($cdata);
-						}	
+				//saving link_options
+				if(!empty($_POST['linkto'])){
+					foreach($_POST['linkto'] as $sqoid => $sqoval ){
+						$linkto = array();
+						$linkto['option_id'] = $sqoval;
+						$linkto['link'] = $id;
+						$this->qm_model->save_option_link($linkto);
 					}
 				}
 				echo "Survey question successfully updated";

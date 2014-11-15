@@ -4,6 +4,7 @@ class qm_model extends model {
 	public $survey = "dq_survey_questions";
 	public $status = "dq_survey_question_status";
 	public $options = "dq_survey_question_options";
+	public $optionlink = "dq_option_link";
 	public $logic = "dq_logic";
 	public $main = "main";
 	public $basic = "basic";
@@ -31,8 +32,7 @@ class qm_model extends model {
 		$this->db->from($this->survey);
 		$this->db->join($this->status,"$this->status.status_id = $this->survey.status_id", "LEFT");
 		$this->db->where("type", $this->main);
-		$this->db->where("dependent", 0);
-		$this->db->order_by('qcode', 'ASC');
+		$this->db->order_by('order', 'ASC');
 		return $this->db->get()->result();
 	}
 	
@@ -138,6 +138,26 @@ class qm_model extends model {
 	
 	function save_logic($data = ""){
 		$this->db->insert($this->logic, $data);	
+	}
+	
+	function delete_option_link($data){
+		if(!empty($data)){
+			foreach($data as $f => $val){
+				$this->db->where($f, $val);	
+			}
+			$this->db->delete($this->optionlink);
+		}
+	}
+	
+	function save_option_link($data = ""){
+		$this->delete_option_link($data);
+		$this->db->insert($this->optionlink, $data);	
+	}
+	
+	function get_option_link($id =0){
+		$this->db->from($this->optionlink);
+		$this->db->where('link', $id);
+		return $this->db->get()->result();
 	}
 	
 	function delete_survey_option($id = 0){
