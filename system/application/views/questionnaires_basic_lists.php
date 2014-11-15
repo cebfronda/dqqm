@@ -25,19 +25,24 @@
 	<table cellspacing="1" class="tablesorter">
 	    <thead>
 		    <tr>
-			    <th>QCode</th>
-			    <th>Survey Question</th>
-			    <th>Action</th>
+			    <th>ORDER</th>
+			    <th>SET ID</th>
+			    <th>CAMPAIGN</th>
+			    <th>QCODE</th>
+			    <th>SCRIPT</th>
+			    <th>ACTION</th>
     
 		    </tr>
 	    </thead>
 	    <?php if(count($lists) > 10){ ?>
 		<tfoot>
 			<tr>
-				<th>QCode</th>
-				<th>Survey Question</th>
-				<th>Action</th>
-	
+			    <th>ORDER</th>
+			    <th>SET ID</th>
+			    <th>CAMPAIGN</th>
+			    <th>QCODE</th>
+			    <th>SCRIPT</th>
+			    <th>ACTION</th>
 			</tr>
 		</tfoot>
 	    <?php } ?>
@@ -45,6 +50,9 @@
 		<?php if(!empty($lists)){?>
 		    <?php foreach($lists as $l){?>
 			<tr>
+				<td><?php echo $l->order; ?></td>
+				<td><?php echo $l->set_id; ?></td>
+				<td><?php echo $l->campaign; ?></td>
 				<td><?php echo $l->qcode; ?></td>
 				<td><?php echo $l->question; ?></td>
 				<td>
