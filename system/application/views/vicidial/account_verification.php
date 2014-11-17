@@ -15,12 +15,19 @@
 				$("#"+$(this).attr('reference')).attr('class',"JActive");
 			});
 			$('#save_changes').click(function(){
-				$.get("<?php echo base_url().index_page()?>/vicidial/logic/", function(data){
+				$.get("<?php echo base_url().index_page()?>/vicidial/intro2", function(data){
 					$('#JContainer').html(data);
 				});	
 			});
+			$('#btn-dispose').off('click');
+			$('#btn-dispose').click(function(){
+				$.get("<?php echo base_url().index_page()?>/vicidial/intro",function(data){
+					$('#JContainer').html(data);
+				});	
+			});
+			$('#btn-next').off('click');
 			$('#btn-next').click(function(){
-				$.get("<?php echo base_url().index_page()?>/vicidial/logic/", function(data){
+				$.post("<?php echo base_url().index_page()?>/vicidial/intro2/", $("#frm-av").serialize(), function(data){
 					$('#JContainer').html(data);
 				});	
 			});
@@ -31,6 +38,7 @@
 		<a href="#" class="BotShow">SHOW SCRIPTS</a>
 		<a href="javascript:void(0);" id = "save_changes">SAVE CHANGES</a>
 	</div>
+	<form id = "frm-av">
 	<div class="JBox JBoxDark">
 		<h1>Customer Information</h1>
 		<ul>
@@ -48,3 +56,4 @@
 			<?php }?>
 		</ul>
 	</div>
+	</form>

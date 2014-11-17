@@ -1,6 +1,5 @@
     <script type="text/javascript">
 	$(document).ready(function(){
-	    $("table").tablesorter();
 	    <?php if(count($lists) > 10){ ?>
 		$("table").tablesorterPager({container: $("#pager")});
 	    <?php } ?>
@@ -64,20 +63,3 @@
 		<?php } ?>
 	    </tbody>
     </table>
-<?php if(count($lists) > 10){ ?>
-    <div id="pager" class="pager">
-	    <form>
-		    <img src="<?php echo base_url() ?>css/tablesorter/first.png" class="first"/>
-		    <img src="<?php echo base_url() ?>css/tablesorter/prev.png" class="prev"/>
-		    <input type="text" style = "width: 50px; height: 18px; " class="pagedisplay"/>
-		    <img src="<?php echo base_url() ?>css/tablesorter/next.png" class="next"/>
-		    <img src="<?php echo base_url() ?>css/tablesorter/last.png" class="last"/>
-		    <select class="pagesize">
-			    <option selected="selected"  value="10">10</option>
-			    <option value="20">20</option>
-			    <option value="30">30</option>
-			    <option  value="40">40</option>
-		    </select>
-	    </form>
-    </div>
-<?php } ?>

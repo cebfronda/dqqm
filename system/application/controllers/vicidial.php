@@ -14,7 +14,23 @@ class Vicidial extends Controller {
 	}
 	
 	function index(){
+		$data = array();
 		$this->load->view('vicidial', $data); 	
+	}
+	
+	function intro(){
+		$data = array();
+		$this->load->view('vicidial/agent', $data); 
+	}
+	
+	function intro2(){
+		$data = array();
+		$this->load->view('vicidial/agent2', $data); 
+	}
+	
+	function close(){
+		$data = array();
+		$this->load->view('vicidial/agent3', $data); 
 	}
 	
 	function account_verification($id = 0){
@@ -28,6 +44,9 @@ class Vicidial extends Controller {
 	}
 	
 	function survey($id = 0){
+		if($_POST){
+			$data['userdata'] = $_SESSION['userdata'] = $_POST;
+		}
 		$data['scripts'] = $this->vicidial_model->get_main_scripts();
 		$this->load->view("vicidial/survey", $data);
 	}

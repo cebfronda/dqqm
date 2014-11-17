@@ -14,11 +14,21 @@
 				$(".JBoxDark li").attr('class', '');
 				$("#"+$(this).attr('reference')).attr('class',"JActive");
 			});
-			$('#btn-next').off('click');
-			$('#btn-next').click(function(){
-				$.get("<?php echo base_url().index_page()?>/vicidial/survey/", function(data){
+			$('#btn-dispose').off('click');
+			$('#btn-dispose').click(function(){
+				$.get("<?php echo base_url().index_page()?>/vicidial/intro",function(data){
 					$('#JContainer').html(data);
 				});	
+			});
+			$('#btn-next').off('click');
+			$('#btn-next').click(function(){
+				$.post("<?php echo base_url().index_page()?>/vicidial/survey/", $("#frm-logic").serialize(), function(data){
+					$('#JContainer').html(data);
+				});	
+			});
+			$('.JBoxSel').change(function() {
+				var inputs = $(this).closest('form').find(':input');
+				inputs.eq( inputs.index(this)+ 1 ).focus();
 			});
 		});
 	</script>
@@ -28,8 +38,9 @@
 		<a href="#" class="BotShow">SHOW SCRIPTS</a>
 	</div>
 	-->
+	<form id = "frm-logic">
 	<div class="JBox JBoxDark">
-		<h1>CUSTOMER GO-AHEAD 2</h1>
+		<h1>LOGIC CONDITIONS</h1>
 		<ul>
 			<?php if(!empty($scripts)){?>
 				<?php foreach($scripts as $script){ ?>
@@ -39,6 +50,7 @@
 					<div class="JBoxDesc">
 						<div class="JBoxDescQuestion"><?php echo $script->question ?></div>
 						<select class="JBoxSel" reference = "<?php echo $script->survey_question_id ?>" name = "survey[<?php echo $script->survey_question_id ?>]">
+							<option value = "" ></option>
 							<?php foreach($options as $opt){?>
 								<option value = "<?php echo $opt->option_id ?>" ><?php echo $opt->option ?></option>
 							<?php } ?>
@@ -50,3 +62,4 @@
 			<?php }?>
 		</ul>
 	</div>
+	</form>

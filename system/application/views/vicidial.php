@@ -7,7 +7,7 @@
 		<script type="text/javascript" src="<?php echo base_url();?>js/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript">
 			$( document ).ready(function() {
-				$.get("<?php echo base_url().index_page()?>/vicidial/account_verification/", function(data){
+				$.get("<?php echo base_url().index_page()?>/vicidial/intro", function(data){
 					$('#JContainer').html(data);	
 				});
 			});
