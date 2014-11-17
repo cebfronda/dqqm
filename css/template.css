@@ -1,0 +1,418 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body
+{
+	overflow: hidden;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	background: #dddddd;
+	font-family: arial;
+	font-size: 12px;
+}
+
+
+#JLogo
+{
+	position: absolute;
+	top: 0px;
+	left: 10px;
+	z-index: 9;
+}
+#JTop
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	background: #32323a;
+	padding: 0px 20px;
+	height: 40px;
+}
+
+	.BtnNext
+	{
+		float: right;
+		display: inline-block;
+		background-color: #1ba593;
+	    border-color: #e25555;
+	    color: white;
+	    margin-top: 2px;
+	    height: 36px;
+	    line-height: 36px;
+	    padding: 0px 30px;
+	    border-radius:3px;
+	    text-decoration: none;
+	    font-size: 14px;
+	}
+	.BtnNext:hover
+	{
+		background: #047869;
+	}
+
+
+	.BtnDispose
+	{
+		float: right;
+		display: inline-block;
+		background-color: #e66b6b;
+	    border-color: #e25555;
+	    color: white;
+	    margin-top: 2px;
+	    margin-right: 10px;
+	    height: 36px;
+	    line-height: 36px;
+	    padding: 0px 30px;
+	    border-radius:3px;
+	    text-decoration: none;
+	    font-size: 14px;
+	}
+	.BtnDispose:hover
+	{
+		background:#8f0202; 
+	}
+
+#JSidebar
+{
+	position: absolute;
+	top: 40px;
+	bottom: 0px;
+	left: 0%;
+	display: block;
+	width: 20%;
+	background: #32323a;
+}
+
+	.BoxCamp
+	{
+		overflow: hidden;
+	}
+
+		.BoxCamp > h1
+		{
+			background: #45c9c4;
+			padding: 15px 10px;
+			color: #FFF;
+			font-size: 16px;
+			text-shadow:0px 1px 1px #333;
+		}
+		.BoxCamp > ul
+		{
+			margin: 0px;
+			padding: 0px;
+			list-style: none;
+			overflow: hidden;
+		}
+
+			.BoxCamp > ul > li
+			{
+				display: block;
+				padding: 10px;
+				border-bottom: 1px solid #3c3c44;
+				color: #FFF;
+				
+			}
+	.BoxAgent
+	{
+		overflow: hidden;
+	}
+
+		.BoxAgent > h1
+		{
+			background: #45c9c4;
+			padding: 15px 10px;
+			color: #FFF;
+			font-size: 16px;
+			text-shadow:0px 1px 1px #333;
+		}
+		.BoxAgent > ul
+		{
+			margin: 0px;
+			padding: 0px;
+			list-style: none;
+			overflow: hidden;
+		}
+
+			.BoxAgent > ul > li
+			{
+				display: block;
+				padding: 10px;
+				border-bottom: 1px solid #3c3c44;
+				color: #FFF;
+			}
+
+
+	.JBox
+	{
+		display: block;
+		overflow: hidden;
+		border-radius: 3px 3px 0px 0px;
+		box-shadow: 0 1px 2px #c3c3c3;
+		margin: 10px 0px 5px 0px;
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+		width: 100%;
+	}
+
+		.JBoxDark
+		{
+			overflow: hidden;
+		}
+
+			.JBoxDark > h1
+			{
+				padding: 15px;
+				background: #428bca;
+				color: #FFF;
+				font-size: 16px;
+			}
+	.JBox > ul
+	{
+		margin: 0px;
+		padding: 0px;
+		list-style: none;
+		overflow: auto;
+		font-size: 14px;
+		position: absolute;
+		top: 46px;
+		bottom: 0px;
+		display: block;
+		width: 100%;
+	}
+		.JBox > ul > li
+		{
+			display: block;
+			padding: 10px;
+			overflow: hidden;
+			border-bottom: 1px solid #e1e1e1;
+		}
+		.JBox > ul > li:nth-child(odd)
+		{
+			background: #b3e2f3;
+		}
+		.JBox > ul > li:nth-child(even)
+		{
+			background: #cce8f2;
+		}
+		.JBox > ul > li.JActive
+		{
+			background: #860404;
+			color: #FFF;
+		}
+
+			.JBoxTitle
+			{
+				float: left;
+				display: block;
+				width: 15%;
+			}
+			.JBoxDesc
+			{
+				float: left;
+				display: block;
+				width: 85%;
+			}
+				.JBoxDescQuestion
+				{
+					font-size: 14px;
+					margin-bottom: 5px;
+					font-weight: bold;
+				}
+				.JBoxSel
+				{
+					border: 1px solid #e2e2e4;
+				    box-shadow: none;
+				    color: #333333;
+				    display: block;
+				    width: 20%;
+				    padding: 6px 12px;
+				    border-radius: 4px;
+				    overflow: hidden;	
+				}
+
+				.JBoxInp
+				{
+					border: 1px solid #e2e2e4;
+				    box-shadow: none;
+				    color: #333333;
+				    display: block;
+				    width: 92%;
+				    padding: 6px 12px;
+				    border-radius: 4px;
+				    overflow: hidden;
+				}
+
+				.JBoxInpSmall
+				{
+					border: 1px solid #e2e2e4;
+				    box-shadow: none;
+				    color: #333333;
+				    display: block;
+				    width: 10px;
+				    padding: 6px 12px;
+				    border-radius: 4px;
+				    overflow: hidden;
+				}
+
+				.JBoxDescHint
+				{
+					font-size: 12px;
+					margin-top: 5px;
+				}
+
+#JTopContainer
+{
+	position: absolute;
+	top: 50px;
+	bottom: 0px;
+	right: 2%;
+	display: block;
+	width: 77%;
+	height: 130px;
+	background: #FFF;
+	box-shadow: 0px 5px 5px #999;
+	border-radius:5px 5px 0px 0px;
+	overflow: hidden;
+	border:1px solid #ddd;
+}
+
+	#JTopContainer > h1
+	{
+		padding: 10px 15px;
+		background: #f5f5f5;
+		color: #333;
+		font-size: 16px;
+	}
+
+	#JTopContainer > ul
+	{
+		padding: 5px 15px;
+		margin: 0px;
+		list-style: none;
+		overflow: hidden;
+	}
+
+		#JTopContainer > ul > li
+		{
+			display: block;
+			float: left;
+			width: 50%;
+			height: 40px;
+			margin-top: 5px;
+			overflow: hidden;
+		}
+
+			.TopConTitle
+			{
+				float:left;
+				display: block;
+				width: 20%;
+				height: 40px;
+				line-height: 35px;
+				font-size: 14px;
+			}
+			.TopConDesc
+			{
+				float:left;
+				display: block;
+				width: 78%;
+			}
+
+				.TopConInp
+				{
+					border: 1px solid #e2e2e4;
+				    border-radius: 4px;
+				    box-shadow: none;
+				    color: #333333;
+				    display: block;
+				    overflow: hidden;
+				    padding: 6px 12px;
+				    width: 92%;
+				    background:#e2e2e4; 
+				}
+
+
+
+#JContainer
+{
+	position: absolute;
+	top: 180px;
+	bottom: 0px;
+	right: 2%;
+	display: block;
+	width: 77%;
+}
+
+	.ContainerTopBot
+	{
+		display: block;
+		position: absolute;
+		right: 0px;
+		top: 10px;
+		z-index: 99;
+		overflow: hidden;
+	}
+
+		.ContainerTopBot > a
+		{
+			display: block;
+			padding: 10px;
+			background: #05457c;
+			float: left;
+			margin-left: 5px;
+			margin-right: 5px;
+			margin-top: 7px;
+			text-decoration: none;
+			color: #FFF;
+			border-radius: 5px;
+		}
+
+			a.BotShow
+			{
+				display: none;
+			}

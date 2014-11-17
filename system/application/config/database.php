@@ -50,6 +50,19 @@ $db['crm']['cachedir'] = "";
 $db['crm']['char_set'] = "utf8";
 $db['crm']['dbcollat'] = "utf8_general_ci";
 
+$db['vicidial']['hostname'] = "116.50.225.92:3306";
+$db['vicidial']['username'] = "root";
+$db['vicidial']['password'] = "";
+$db['vicidial']['database'] = "asterisk";
+$db['vicidial']['dbdriver'] = "mysql";
+$db['vicidial']['dbprefix'] = "";
+$db['vicidial']['pconnect'] = TRUE;
+$db['vicidial']['db_debug'] = TRUE;
+$db['vicidial']['cache_on'] = FALSE;
+$db['vicidial']['cachedir'] = "";
+$db['vicidial']['char_set'] = "utf8";
+$db['vicidial']['dbcollat'] = "utf8_general_ci";
+
 
 /* End of file database.php */
 /* Location: ./system/application/config/database.php */
